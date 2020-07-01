@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:d="http://xamarin.com/schemas/2014/forms/design" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="DarkIce.MainPage" Title="Accounts">
+    <StackLayout>
+        <ListView ItemsSource="{Binding ListOfAccounts}"
+                  IsGroupingEnabled="True"
+                  HasUnevenRows="true"
+                  ItemSelected="OnListViewItemSelected"
+                  ItemTapped="OnListViewItemTapped">
+            <ListView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Label Text="{Binding Heading}" />
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.GroupHeaderTemplate>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.RowSpan="3"
+                                   Source="{Binding Picture}"
+                                   Aspect="AspectFill"
+                                   HeightRequest="60"
+                                   WidthRequest="60" />
+                            <Label Grid.Column="1"
+                                   Text="{Binding Name.FullName, StringFormat='Name: {0}'}">
+                                
+                                <Label.Triggers>
+                                    <DataTrigger Binding="{Binding EyeColor}" Value="blue eyes"
+                                                 TargetType="Label">
+                                        <Setter Property="TextColor" Value="Blue"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding EyeColor}" Value="green eyes"
+                                                 TargetType="Label">
+                                        <Setter Property="TextColor" Value="Green"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding EyeColor}" Value="brown eyes"
+                                                 TargetType="Label">
+                                        <Setter Property="TextColor" Value="Brown"/>
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+
+                            <Label Grid.Row="1"
+                                   Grid.Column="1"
+                                   Text="{Binding Age, StringFormat='Age: {0}'}" />
+                            <Label Grid.Row="2"
+                                   Grid.Column="1"
+                                   Text="{Binding AccountBalance, StringFormat='Balance: {0}'}"
+                                   VerticalOptions="End" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>
